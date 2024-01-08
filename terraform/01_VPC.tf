@@ -58,10 +58,19 @@ resource "aws_internet_gateway" "IGW" {
 }
 
 resource "aws_eip" "nat" {
-    domain = "vpc"
-    tags = {
-        Name = "nat"
-    }
+   depends_on = [aws.internet_gateway.IGW]
+}
+
+resource "aws_eip" "nat2" {
+  depends_on = [aws.internet_gateway.IGW]
+}
+
+resource "aws_nat_gateway" "nat2" {
+  allocation_id = aws_eip.nat2.id
+  subnet_id     = aws_subnet.Public2.id
+  tags = {
+    Name = "nat2"
+  }
 }
 
 resource "aws_nat_gateway" "nat" {
