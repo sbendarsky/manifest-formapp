@@ -58,11 +58,11 @@ resource "aws_internet_gateway" "IGW" {
 }
 
 resource "aws_eip" "nat" {
-   depends_on = [aws.internet_gateway.IGW]
+   depends_on = [aws_internet_gateway.IGW]
 }
 
 resource "aws_eip" "nat2" {
-  depends_on = [aws.internet_gateway.IGW]
+  depends_on = [aws_internet_gateway.IGW]
 }
 
 resource "aws_nat_gateway" "nat2" {
