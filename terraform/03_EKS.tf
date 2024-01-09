@@ -14,3 +14,7 @@ resource "aws_eks_cluster" "eks-formapp" {
 
   depends_on = [aws_iam_role_policy_attachment.formapp_amazon_eks_cluster_policy]
 }
+
+data "aws_eks_cluster_auth" "eks-formapp" {
+ name = "eks-formapp"
+}
