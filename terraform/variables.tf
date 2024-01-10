@@ -1,42 +1,34 @@
-variable "aws_region" {
-  default = "us-east-1"
+# provider.tf Variables
+variable "region" {
+  description = "value of the region"
+  type        = string
 }
 
-variable "backend_bucket" {
-  default = "formapp-tfstate-bucket"
+# vpc_network Variables
+variable "vpc_name" {
+  description = "VPC name to create"
+  type = string
 }
 
-variable "vpc_cidr" {
-  default = "172.20.0.0/16"
+variable "subnets_name" {
+  type        = list(string)
+  description = "list of subnets names to create"
 }
 
-variable "subnetcidr1" {
-  default = "172.20.1.0/24"
+# EKS Variables
+variable "cluster_name" {
+  description = "EKS cluster name"
+  type        = string
 }
 
-variable "azpublic1" {
-  default = "us-east-1a"
+variable "node_group" {
+  type = object({
+    name = string
+    instance_types = list(string)
+    desired_size = number
+    max_size     = number
+    min_size     = number
+    max_unavailable = number
+  })
+  description = "node group configuration"
 }
-
-variable "subnetcidr2" {
-  default = "172.20.2.0/24"
-}
-
-variable "azpublic2" {
-  default = "us-east-1b"
-}
-
-variable "subnetcidr3" {
-  default = "172.20.3.0/24"
-}
-
-variable "subnetcidr4" {
-  default = "172.20.4.0/24"
-}
-
-variable "quadzero" {
-  default = "0.0.0.0/0"
-}
-
-
-
