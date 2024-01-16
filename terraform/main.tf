@@ -15,3 +15,10 @@ module "eks" {
 
   depends_on = [ module.vpc_network ]
 }
+
+# ArgoCD
+module "argocd" {
+  source = "./modules/argocd"
+  argocd_helm_chart = var.argocd_helm_chart
+  depends_on = [ module.eks ]
+}

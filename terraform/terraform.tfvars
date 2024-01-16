@@ -15,3 +15,13 @@ node_group = {
   min_size = 1
   max_unavailable = 1
 }
+
+# ArgoCD Module Vars
+argocd_helm_chart = {
+    release_name = "argocd"
+    repository = "https://argoproj.github.io/argo-helm"
+    chart = "argo-cd"
+    namespace = "argocd"
+    version = "5.20.3"
+    create_namespace = true
+}
