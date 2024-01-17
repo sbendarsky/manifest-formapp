@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Chart.Name}}-deployment  # Fix the typo here
+  labels:
+    app: "nginx"
+spec:
+  replicas: {{ .Values.nginx.replicaCount }}
+  selector:
+    matchLabels:
+      app: "nginx"
+  template:
+    metadata:
+      labels:
+        app: "nginx"
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        volumeMounts:
+          - name: nginx-conf
+            mountPath: /etc/nginx/conf.d
+          - name: static
+            mountPath: /usr/share/nginx/html
+      volumes:
+        - name: nginx-conf
+          configMap:
+            name: nginx-conf    
+        - name: static
+          configMap:
+            name: nginx-static
+
+---
+
+{{- if .Values.nginx.autoscaling.enabled }}
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{.Chart.Name}}-nginx-autoscaling
+  labels:
+    app: "app"
+spec:
+  scaleTargetRef:
+    kind: Deployment
+    name: {{.Chart.Name}}-deployment  # Fix the typo here
+    apiVersion: apps/v1
+  minReplicas: {{.Values.nginx.autoscaling.min }}
+  maxReplicas: {{.Values.nginx.autoscaling.max }}
+  metrics:
+  - type: Resource
+    resource:
+      name: "cpu"
+      target:
+        type: Utilization
+        averageUtilization: {{.Values.nginx.autoscaling.averageUtilization }}
+{{- end }}

@@ -1,0 +1,26 @@
+# Default values for app.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+app:
+  replicaCount: 2
+  image:
+    name: sbendarsky/flask-web
+    tag: 1.3.0
+
+# DB Settings
+db:
+  mysqlreplicaCount: 1
+  password: root
+  host: mysql
+  db_name: db
+  root_password: root
+
+# nginx settings
+nginx:
+  replicaCount: 2
+  autoscaling:
+    enabled: false
+    minReplicas: 1
+    maxReplicas: 4
+    targetCPUUtilizationPercentage: 80
