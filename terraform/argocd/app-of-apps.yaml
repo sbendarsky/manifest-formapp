@@ -20,7 +20,7 @@ applications:
   #   namespace: argocd
   #   project: default
   #   source:
-  #     repoURL: git@github.com:Daniel-Yakov/employees-gitops-config.git
+  #     repoURL: 
   #     targetRevision: HEAD
   #     path: infra-apps
   #   destination:
