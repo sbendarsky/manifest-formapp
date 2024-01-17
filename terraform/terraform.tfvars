@@ -16,6 +16,10 @@ node_group = {
   max_unavailable = 1
 }
 
+# tls Module Vars
+cert_manager_solver_role_name = "formapp-cert-manager-role"
+hosted_zone_id = "Z0812785FWYP51NI40L5"
+
 # ArgoCD Module Vars
 argocd_helm_chart = {
     release_name = "argocd"

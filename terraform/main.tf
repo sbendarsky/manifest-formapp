@@ -16,6 +16,16 @@ module "eks" {
   depends_on = [ module.vpc_network ]
 }
 
+# TLS Role
+module "tls_role" {
+  source = "./modules/tls-role"
+  cert_manager_solver_role_name = var.cert_manager_solver_role_name
+  node_group_role_arn = module.eks.node_group_role_arn
+  hosted_zone_id = var.hosted_zone_id
+
+  depends_on = [ module.eks ]
+}
+
 # ArgoCD
 module "argocd" {
   source = "./modules/argocd"
