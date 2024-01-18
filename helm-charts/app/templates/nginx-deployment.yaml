@@ -1,3 +1,6 @@
+# nginx-deployment.yaml
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -30,9 +33,8 @@ spec:
           configMap:
             name: nginx-static
 
----
-
 {{- if .Values.nginx.autoscaling.enabled }}
+---
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
@@ -54,3 +56,43 @@ spec:
         type: Utilization
         averageUtilization: {{.Values.nginx.autoscaling.averageUtilization }}
 {{- end }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+  labels:
+    app: "nginx"
+spec:
+  ports:
+  - protocol: "TCP"
+    port: 80
+    targetPort: 80
+  selector:
+    app: "nginx"
+  type: NodePort  # Change the service type to NodePort
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-conf
+data:
+  default.conf: |-
+    server {
+      listen 80;
+      index index.html;
+
+      location / {
+        add_header From "nginx";
+        proxy_pass http://formapp-svc:80;
+        proxy_redirect off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header user-agent $http_user_agent;
+        add_header From "flask";
+      }
+    }
+
