@@ -4,7 +4,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{.Chart.Name}}-deployment  # Fix the typo here
+  name: {{.Chart.Name}}-nginx
   labels:
     app: "nginx"
 spec:
@@ -71,7 +71,7 @@ spec:
     targetPort: 80
   selector:
     app: "nginx"
-  type: NodePort  # Change the service type to NodePort
+  sessionAffinity: ClientIP
 
 ---
 apiVersion: v1
