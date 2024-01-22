@@ -4,10 +4,15 @@ metadata:
   name: nginx-ingress
   annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:793006016449:certificate/953fc513-3dfd-41c8-baa7-67e0fb4c41e7
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: '443'
 spec:
   ingressClassName: alb
   rules:
-     - http:
+    - host: formapp.me
+      http:
         paths:
           - path: /
             pathType: Prefix
@@ -16,3 +21,4 @@ spec:
                 name: nginx-service
                 port:
                   number: 80
+
