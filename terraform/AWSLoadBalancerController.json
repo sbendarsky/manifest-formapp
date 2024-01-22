@@ -214,6 +214,46 @@
                 "elasticloadbalancing:ModifyRule"
             ],
             "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "iam:*",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "ec2:*",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "elasticloadbalancing:*",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "cognito-idp:*",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "acm:*",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "waf-regional:*",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "wafv2:*",
+            "Resource": "*"
+        },
+        {
+            "Effect": "Allow",
+            "Action": "shield:*",
+            "Resource": "*"
         }
     ]
 }
