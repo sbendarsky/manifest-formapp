@@ -49,7 +49,7 @@ spec:
   maxReplicas: 1
   minReplicas: 1
   scaleTargetRef:
-    apiVersion: autoscaling/v2beta2
+    apiVersion: apps/v1
     kind: Deployment
     name: formapp
   targetCPUUtilizationPercentage: 20
