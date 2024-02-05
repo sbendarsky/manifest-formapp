@@ -43,3 +43,37 @@ resource "helm_release" "aws-load-balancer-controller" {
     aws_iam_role_policy_attachment.aws_load_balancer_controller_attach
   ]
 }
+
+# Create ArgoCD
+resource "helm_release" "argocd" {
+  name  = "argocd"
+
+  repository       = "https://argoproj.github.io/argo-helm"
+  chart            = "argo-cd"
+  namespace        = "argocd"
+  version          = "5.20.3"
+  create_namespace = true
+
+  depends_on = [
+    aws_eks_node_group.private-nodes,
+    helm_release.aws-load-balancer-controller
+  ]
+}
+
+# deploy argocd application
+resource "helm_release" "argocd-apps" {
+  name       = "argocd-apps"
+  
+  repository = "https://argoproj.github.io/argo-helm"
+  chart      = "argocd-apps"
+  namespace  = "argocd"
+  version    = "0.1.0"
+
+  values = [
+    file("apps-of-apps/applications.yaml")
+  ]
+
+  depends_on = [
+    helm_release.argocd
+  ]
+}
