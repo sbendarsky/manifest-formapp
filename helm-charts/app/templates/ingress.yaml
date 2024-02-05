@@ -15,7 +15,7 @@ metadata:
 spec:
   ingressClassName: alb
   rules:
-  - host: formapp.me
+  - host: www.formapp.me
     http:
       paths:
       - path: /
