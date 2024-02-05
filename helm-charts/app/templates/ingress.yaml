@@ -24,31 +24,3 @@ spec:
             name: nginx-service
             port:
               number: 80
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: argocd-ingress
-  namespace: argocd
-  annotations:
-    alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/target-type: ip
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:793006016449:certificate/953fc513-3dfd-41c8-baa7-67e0fb4c41e7
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
-    alb.ingress.kubernetes.io/ssl-redirect: '443'
-    alb.ingress.kubernetes.io/stickiness.enabled: 'true'
-    alb.ingress.kubernetes.io/stickiness.type: 'lb_cookie'
-    alb.ingress.kubernetes.io/stickiness.lb_cookie.duration_seconds: '86400'
-spec:
-  ingressClassName: alb
-  rules:
-  - host: www.formapp.me
-    http:
-      paths:
-      - path: /argocd
-        pathType: Prefix
-        backend:
-          service:
-            name: argocd-server
-            port:
-              number: 8080
