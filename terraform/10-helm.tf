@@ -50,6 +50,10 @@ resource "helm_release" "ebs-csi-driver" {
   repository = "https://kubernetes-sigs.github.io/aws-ebs-csi-driver"
   namespace = "kube-system"
   chart = "aws-ebs-csi-driver"
+
+  depends_on = [
+    aws_eks_node_group.private-nodes
+  ]
 }
 
 # Create ArgoCD

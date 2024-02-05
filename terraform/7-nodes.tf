@@ -28,6 +28,11 @@ resource "aws_iam_role_policy_attachment" "amazon-ec2-container-registry-read-on
   role       = aws_iam_role.nodes.name
 }
 
+resource "aws_iam_role_policy_attachment" "AmazonEBSCSIDriverPolicy" {
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+  role      = aws_iam_role.nodes.name
+}
+
 resource "aws_eks_node_group" "private-nodes" {
   cluster_name    = aws_eks_cluster.cluster.name
   version         = var.cluster_version
@@ -40,11 +45,11 @@ resource "aws_eks_node_group" "private-nodes" {
   ]
 
   capacity_type  = "ON_DEMAND"
-  instance_types = ["t3.medium"]
+  instance_types = ["t3.xlarge"]
 
   scaling_config {
-    desired_size = 1
-    max_size     = 1
+    desired_size = 2
+    max_size     = 2
     min_size     = 0
   }
 
@@ -60,6 +65,7 @@ resource "aws_eks_node_group" "private-nodes" {
     aws_iam_role_policy_attachment.amazon-eks-worker-node-policy,
     aws_iam_role_policy_attachment.amazon-eks-cni-policy,
     aws_iam_role_policy_attachment.amazon-ec2-container-registry-read-only,
+    aws_iam_role_policy_attachment.AmazonEBSCSIDriverPolicy
   ]
 
   # Allow external changes without Terraform plan difference
