@@ -26,18 +26,18 @@ spec:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
- name: mysql
- labels:
+  name: mysql
+  labels:
     app: mysql
     tier: database
 spec:
- replicas: {{ .Values.db.mysqlreplicaCount }}
- serviceName: "mysql"
- selector:
+  replicas: {{ .Values.db.mysqlreplicaCount}}
+  serviceName: "mysql"
+  selector:
     matchLabels:
       app: mysql
       tier: database
- template:
+  template:
     metadata:
       labels:
         app: mysql
@@ -55,16 +55,8 @@ spec:
         - name: MYSQL_DATABASE
           value: db
         resources:
-          limits:
-            cpu: "100m"
           requests:
             cpu: "100m"
         ports:
         - containerPort: 3306
           name: mysql
-        volumeMounts:
-        - name: mysql-storage
-          mountPath: /var/lib/mysql
-      volumes:
-      - name: mysql-storage
-        emptyDir: {}
