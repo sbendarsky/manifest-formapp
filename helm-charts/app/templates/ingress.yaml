@@ -1,8 +1,8 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nginx-ingress
-  annotations:
+ name: nginx-ingress
+ annotations:
     alb.ingress.kubernetes.io/scheme: internet-facing
     alb.ingress.kubernetes.io/target-type: ip
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:793006016449:certificate/953fc513-3dfd-41c8-baa7-67e0fb4c41e7
@@ -13,16 +13,15 @@ metadata:
     alb.ingress.kubernetes.io/stickiness.type: 'lb_cookie'
     alb.ingress.kubernetes.io/stickiness.lb_cookie.duration_seconds: '86400'
 spec:
-  ingressClassName: alb
-  rules:
-    - host: formapp.me
-        http:
-          paths:
-            - path: /
-              pathType: Prefix
-              backend:
-                service:
-                  name: nginx-service
-                  port:
-                    number: 80
-
+ ingressClassName: alb
+ rules:
+ - host: formapp.me
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-service
+            port:
+              number: 80
