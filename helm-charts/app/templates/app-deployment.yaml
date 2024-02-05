@@ -40,16 +40,3 @@ spec:
         ports:
         - containerPort: 5000
 
----
-apiVersion: autoscaling/v1
-kind: HorizontalPodAutoscaler
-metadata:
-  name: formapp-hpa
-spec:
-  maxReplicas: 1
-  minReplicas: 1
-  scaleTargetRef:
-    apiVersion: apps/v1
-    kind: Deployment
-    name: formapp
-  targetCPUUtilizationPercentage: 20
