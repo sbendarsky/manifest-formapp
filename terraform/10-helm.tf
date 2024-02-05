@@ -44,6 +44,14 @@ resource "helm_release" "aws-load-balancer-controller" {
   ]
 }
 
+#aws-ebs-csi-driver
+resource "helm_release" "ebs-csi-driver" {
+  name = "aws-ebs-csi-driver"
+  repository = "https://kubernetes-sigs.github.io/aws-ebs-csi-driver"
+  namespace = "kube-system"
+  chart = "aws-ebs-csi-driver"
+}
+
 # Create ArgoCD
 resource "helm_release" "argocd" {
   name  = "argocd"
@@ -56,7 +64,8 @@ resource "helm_release" "argocd" {
 
   depends_on = [
     aws_eks_node_group.private-nodes,
-    helm_release.aws-load-balancer-controller
+    helm_release.aws-load-balancer-controller,
+    helm_release.ebs-csi-driver
   ]
 }
 
