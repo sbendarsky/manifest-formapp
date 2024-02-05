@@ -1,9 +1,9 @@
 #!/bin/bash
 
-terraform init
-terraform apply -auto-approve
+# terraform init
+# terraform apply -auto-approve
 
-# Congifure kubectl to work with created cluster
+# # Congifure kubectl to work with created cluster
 aws eks update-kubeconfig --region us-east-1 --name formapp-cluster
 
 # # Initial password
@@ -13,7 +13,7 @@ echo "$(kubectl get -n argocd secret/argocd-initial-admin-secret -o=jsonpath='{.
 # get the dns name of elb
 elb_dns_name=""
 while [[ ! "$elb_dns_name" =~ \.elb\. ]]; do
-  elb_dns_name=$(kubectl get ingress/nginx-ingress -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+  elb_dns_name=$(kubectl get ingress/nginx-ingress -n app -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
   sleep 2
 done
 
@@ -25,10 +25,10 @@ cat > record.json <<EOF
     "Changes": [{
     "Action": "UPSERT",
                 "ResourceRecordSet": {
-                    "Name": "formapp.me",
+                    "Name": "www.formapp.me",
                     "Type": "A",
                     "AliasTarget": {
-                        "HostedZoneId": "Z041381537JPHY26OP7JJ",
+                        "HostedZoneId": "Z35SXDOTRQ7X7K",
                         "DNSName": "dualstack.$elb_dns_name",
                         "EvaluateTargetHealth": true
         }
@@ -37,4 +37,4 @@ cat > record.json <<EOF
 EOF
 
 # update record in aws route 53
-aws route53 change-resource-record-sets --hosted-zone-id Z041381537JPHY26OP7JJ --change-batch file://record.json
+aws route53 change-resource-record-sets --hosted-zone-id Z09707761ASWANW0UBQEW --change-batch file://record.json
