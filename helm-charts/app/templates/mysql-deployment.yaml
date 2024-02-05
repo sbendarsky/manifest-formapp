@@ -1,46 +1,3 @@
-# storageclass.yaml
-apiVersion: storage.k8s.io/v1
-kind: StorageClass
-metadata:
-  name: ebs-sc
-provisioner: kubernetes.io/aws-ebs
-
----
-
-# mysql-persistentvolumeclaim.yaml
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: mysql-pv-claim
-spec:
-  storageClassName: ebs-sc
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-
----
-
-# mysql-service.yaml
-apiVersion: v1
-kind: Service
-metadata:
-  name: mysql
-  labels:
-    app: mysql
-    tier: database
-spec:
-  ports:
-    - port: 3306
-      targetPort: 3306
-  selector:
-    app: mysql
-    tier: database
-  clusterIP: None
-
----
-
 # mysql-statefulset.yaml
 apiVersion: apps/v1
 kind: StatefulSet
@@ -81,12 +38,10 @@ spec:
         ports:
         - containerPort: 3306
           name: mysql
-        volumeClaimTemplates:
-        - metadata:
-            name: mysql-pv-claim
-          spec:
-            accessModes: ["ReadWriteOnce"]
-            storageClassName: ebs-sc
-            resources:
-              requests:
-                storage: 1Gi
+        volumeMounts:
+        - name: mysql-data
+          mountPath: /var/lib/mysql  # Update this path as per your MySQL data directory
+  volumes:
+  - name: mysql-data
+    hostPath:
+      path: /mnt/data  # Update this path to the actual path on the worker nodes
