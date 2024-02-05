@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 app:
-  replicaCount: 1
+  replicaCount: 2
   image:
     name: sbendarsky/flask-web
     tag: 1.3.0
