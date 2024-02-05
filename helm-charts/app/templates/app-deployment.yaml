@@ -21,7 +21,7 @@ metadata:
   labels:
     app: formapp
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: formapp
@@ -48,8 +48,8 @@ kind: HorizontalPodAutoscaler
 metadata:
   name: formapp-hpa
 spec:
-  maxReplicas: 2
-  minReplicas: 2
+  maxReplicas: 1
+  minReplicas: 1
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
