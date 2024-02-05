@@ -1,7 +1,7 @@
 #!/bin/bash
 
-terraform init
-terraform apply -auto-approve
+# terraform init
+# terraform apply -auto-approve
 
 # # Congifure kubectl to work with created cluster
 aws eks update-kubeconfig --region us-east-1 --name formapp-cluster
