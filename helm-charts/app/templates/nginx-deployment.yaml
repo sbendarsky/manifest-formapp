@@ -89,6 +89,7 @@ data:
 
       location / {
         add_header From "nginx";
+        ip_hash;  # Enable IP-based session persistence
         proxy_pass http://formapp-svc:80;
         proxy_redirect off;
         proxy_set_header Host $host;
@@ -98,4 +99,3 @@ data:
         add_header From "flask";
       }
     }
-
