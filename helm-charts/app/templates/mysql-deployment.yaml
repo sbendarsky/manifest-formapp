@@ -2,14 +2,8 @@
 apiVersion: storage.k8s.io/v1
 kind: StorageClass
 metadata:
- name: ebs-sc
-provisioner: ebs.csi.aws.com
-parameters:
- csi.storage.k8s.io/fstype: ext4
- type: gp2
- encrypted: "false"
-volumeBindingMode: WaitForFirstConsumer
-
+  name: ebs-sc
+provisioner: kubernetes.io/aws-ebs
 
 ---
 
