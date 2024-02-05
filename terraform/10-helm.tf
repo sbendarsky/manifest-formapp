@@ -70,7 +70,7 @@ resource "helm_release" "argocd-apps" {
   version    = "0.0.8"
 
   values = [
-    file("apps-of-apps/applications.yaml")
+    file("applications/apps-of-apps.yaml")
   ]
 
   depends_on = [
