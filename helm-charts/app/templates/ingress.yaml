@@ -34,3 +34,6 @@ spec:
             name: argocd-server
             port:
               number: 80  # Assuming ArgoCD service listens on port 80
+            resource:
+              name: argocd-server
+              namespace: argocd  # Specify the namespace where ArgoCD service is located
