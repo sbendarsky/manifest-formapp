@@ -3,9 +3,10 @@ kind: PersistentVolume
 metadata:
     name: pv-mysql
 spec:
+    storageClassName: ebs-sc  # Use the StorageClass
     accessModes:
         - ReadWriteOnce
     capacity:
         storage: 1Gi
-    hostPath:
-        path: /tmp/data
+    claimRef:
+        name: mysql-pv-claim  # Reference to the PVC
