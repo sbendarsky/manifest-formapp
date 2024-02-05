@@ -8,6 +8,9 @@ metadata:
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:489653259257:certificate/fc66b5a8-c082-4e10-b2ec-a5b1e6ab0710
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS": 443}]'
     alb.ingress.kubernetes.io/ssl-redirect: '443'
+    alb.ingress.kubernetes.io/stickiness.enabled: 'true'
+    alb.ingress.kubernetes.io/stickiness.type: 'lb_cookie'
+    alb.ingress.kubernetes.io/stickiness.lb_cookie.duration_seconds: '86400'
 spec:
   ingressClassName: alb
   rules:

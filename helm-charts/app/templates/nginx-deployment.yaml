@@ -72,6 +72,9 @@ spec:
   selector:
     app: "nginx"
   sessionAffinity: ClientIP
+  sessionAffinityConfig:
+    clientIP:
+      timeoutSeconds: 86400  # Set the timeout to match the ALB stickiness duration
 
 ---
 apiVersion: v1
