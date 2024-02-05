@@ -35,8 +35,6 @@ spec:
         image: "{{ .Values.app.image.name }}:{{ .Values.app.image.tag }}"
         imagePullPolicy: Always
         resources:
-          limits:
-            cpu: "100m"
           requests:
             cpu: "100m"
         ports:
