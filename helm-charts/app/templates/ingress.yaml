@@ -24,16 +24,3 @@ spec:
             name: nginx-service
             port:
               number: 80
-  - host: argocd.sbendarsky.me
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: argocd-server
-            port:
-              number: 80  # Assuming ArgoCD service listens on port 80
-            resource:
-              name: argocd-server
-              namespace: argocd  # Specify the namespace where ArgoCD service is located
