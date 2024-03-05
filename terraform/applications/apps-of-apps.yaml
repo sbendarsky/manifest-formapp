@@ -22,7 +22,9 @@ applications:
     source:
       repoURL: https://prometheus-community.github.io/helm-charts/
       targetRevision: 56.21.1
-      path: kube-prometheus-stack
+      chart: kube-prometheus-stack
+      helm:
+        releaseName: monitoring
     destination:
       server: https://kubernetes.default.svc
       namespace: monitoring
@@ -32,4 +34,3 @@ applications:
         selfHeal: true
       syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true
