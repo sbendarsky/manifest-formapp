@@ -1,3 +1,4 @@
+mysql-sts:
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -40,7 +41,7 @@ spec:
         volumeMounts:       
         - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
-  volumes:
-  - name: mysql-persistent-storage
-    persistentVolumeClaim:
-      claimName: mysql-persistent-storage
+      volumes:
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: mysql-persistent-storage
