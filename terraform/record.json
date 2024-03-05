@@ -4,11 +4,11 @@
     {
       "Action": "UPSERT",
       "ResourceRecordSet": {
-        "Name": "formapp.sbendarsky.me",
+        "Name": "formapp.me",
         "Type": "A",
         "AliasTarget": {
           "HostedZoneId": "Z35SXDOTRQ7X7K",
-          "DNSName": "dualstack.k8s-misha-nginxing-78f415ae65-322770120.us-east-1.elb.amazonaws.com",
+          "DNSName": "dualstack.k8s-app-albingre-5ad73101f6-166143464.us-east-1.elb.amazonaws.com",
           "EvaluateTargetHealth": true
         }
       }
@@ -16,11 +16,11 @@
     {
       "Action": "UPSERT",
       "ResourceRecordSet": {
-        "Name": "argocd.sbendarsky.me",
+        "Name": "argocd.formapp.me",
         "Type": "A",
         "AliasTarget": {
           "HostedZoneId": "Z35SXDOTRQ7X7K", 
-          "DNSName": "dualstack.k8s-argocd-argocdin-6dfc8d7bc3-2014733499.us-east-1.elb.amazonaws.com",
+          "DNSName": "dualstack.k8s-argocd-argocdin-6dfc8d7bc3-1273132636.us-east-1.elb.amazonaws.com",
           "EvaluateTargetHealth": true
         }
       }

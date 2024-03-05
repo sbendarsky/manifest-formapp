@@ -13,7 +13,7 @@ echo "$(kubectl get -n argocd secret/argocd-initial-admin-secret -o=jsonpath='{.
 # get the dns name of elb
 elb_dns_name=""
 while [[ ! "$elb_dns_name" =~ \.elb\. ]]; do
-  elb_dns_name=$(kubectl get ingress/nginx-ingress -n app -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+  elb_dns_name=$(kubectl get ingress/alb-ingress -n app -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
   sleep 2
 done
 
@@ -33,7 +33,7 @@ cat > record.json <<EOF
     {
       "Action": "UPSERT",
       "ResourceRecordSet": {
-        "Name": "formapp.sbendarsky.me",
+        "Name": "formapp.me",
         "Type": "A",
         "AliasTarget": {
           "HostedZoneId": "Z35SXDOTRQ7X7K",
@@ -45,7 +45,7 @@ cat > record.json <<EOF
     {
       "Action": "UPSERT",
       "ResourceRecordSet": {
-        "Name": "argocd.sbendarsky.me",
+        "Name": "argocd.formapp.me",
         "Type": "A",
         "AliasTarget": {
           "HostedZoneId": "Z35SXDOTRQ7X7K", 
@@ -59,4 +59,4 @@ cat > record.json <<EOF
 EOF
 
 # update record in aws route 53
-aws route53 change-resource-record-sets --hosted-zone-id Z0812785FWYP51NI40L5 --change-batch file://record.json
+aws route53 change-resource-record-sets --hosted-zone-id Z09707761ASWANW0UBQEW --change-batch file://record.json
