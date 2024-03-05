@@ -23,3 +23,14 @@ spec:
             name: formapp-svc
             port:
               number: 80
+              
+  - host: argocd.sbendarsky.me
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: argocd-server
+            port:
+              number: 443

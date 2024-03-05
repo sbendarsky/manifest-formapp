@@ -15,12 +15,3 @@ db:
   host: mysql
   db_name: db
   root_password: root
-
-# nginx settings
-nginx:
-  replicaCount: 1
-  autoscaling:
-    enabled: false
-    minReplicas: 1
-    maxReplicas: 4
-    targetCPUUtilizationPercentage: 80
