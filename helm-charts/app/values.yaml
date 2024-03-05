@@ -6,7 +6,7 @@ app:
   replicaCount: 1
   image:
     name: sbendarsky/flask-web
-    tag: 1.10.0
+    tag: 1.11.0
 
 # DB Settings
 db:
