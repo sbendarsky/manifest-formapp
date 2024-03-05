@@ -6,7 +6,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: alb
     alb.ingress.kubernetes.io/scheme: internet-facing
-    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:489653259257:certificate/fc66b5a8-c082-4e10-b2ec-a5b1e6ab0710
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:793006016449:certificate/953fc513-3dfd-41c8-baa7-67e0fb4c41e7
     alb.ingress.kubernetes.io/ssl-policy: ELBSecurityPolicy-2016-08
     alb.ingress.kubernetes.io/backend-protocol: HTTPS
     alb.ingress.kubernetes.io/healthcheck-path: /login
@@ -19,7 +19,7 @@ metadata:
     app: argocd-ingress
 spec:
   rules:
-    - host: argocd.sbendarsky.me
+    - host: argocd.formapp.me
       http:
         paths:
           - path: /
