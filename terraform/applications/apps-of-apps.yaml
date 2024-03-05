@@ -24,7 +24,9 @@ applications:
       targetRevision: 56.21.1
       chart: kube-prometheus-stack
       helm:
-        releaseName: monitoring
+        parameters:
+          - name: grafana.adminPassword
+            value: admin
     destination:
       server: https://kubernetes.default.svc
       namespace: monitoring
@@ -34,3 +36,4 @@ applications:
         selfHeal: true
       syncOptions:
       - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
