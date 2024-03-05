@@ -40,13 +40,7 @@ spec:
         volumeMounts:       
         - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
-  volumeClaimTemplates:
-  - metadata:
-      name: mysql-persistent-storage
-    spec:
-      storageClassName: ebs-sc  # Use the desired StorageClass
-      accessModes:
-        - ReadWriteOnce
-      resources:
-        requests:
-          storage: 1Gi  # Adjust the storage size as needed
+  volumes:
+  - name: mysql-persistent-storage
+    persistentVolumeClaim:
+      claimName: mysql-persistent-storage
