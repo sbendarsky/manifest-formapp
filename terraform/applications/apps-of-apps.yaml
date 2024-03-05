@@ -16,16 +16,20 @@ applications:
       syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
-  # - name: infra
-  #   namespace: argocd
-  #   project: default
-  #   source:
-  #     repoURL: 
-  #     targetRevision: HEAD
-  #     path: infra-apps
-  #   destination:
-  #     server: https://kubernetes.default.svc
-  #   syncPolicy:
-  #     automated:
-  #       prune: true
-  #       selfHeal: true
+  - name: monitoring
+    namespace: argocd
+    project: default
+    source:
+      repoURL: https://prometheus-community.github.io/helm-charts/
+      targetRevision: 56.21.1
+      path: kube-prometheus-stack
+    destination:
+      server: https://kubernetes.default.svc
+      namespace: monitoring
+    syncPolicy:
+      automated:
+        prune: true
+        selfHeal: true
+      syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
