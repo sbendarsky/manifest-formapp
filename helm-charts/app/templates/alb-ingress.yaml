@@ -24,7 +24,7 @@ spec:
             name: formapp-svc
             port:
               number: 80
-
+            namespace: app
   - host: argocd.sbendarsky.me
     http:
       paths:
@@ -35,3 +35,5 @@ spec:
             name: argocd-server
             port:
               number: 443
+            namespace: argocd
+
